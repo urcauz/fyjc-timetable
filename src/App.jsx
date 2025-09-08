@@ -31,11 +31,12 @@ function dayName() {
 export default function App() {
   const [division, setDivision] = useState(Object.keys(DIVISIONS)[0]);
   const [query, setQuery] = useState("");
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   const [current, setCurrent] = useState(null);
   const [next, setNext] = useState(null);
   const [currentIdx, setCurrentIdx] = useState(-1);
   const [showFull, setShowFull] = useState(false);
+  const [countdown, setCountdown] = useState("");
 
   const data = DIVISIONS[division];
   const today = dayName();
@@ -51,9 +52,33 @@ export default function App() {
       setCurrentIdx(idx);
       setCurrent(idx >= 0 ? todaySlots[idx] : null);
       setNext(idx >= 0 && idx + 1 < todaySlots.length ? todaySlots[idx + 1] : null);
+
+      // countdown
+      if (idx >= 0 && idx + 1 < TIME_SLOTS.length) {
+        const [start] = TIME_SLOTS[idx + 1].split("–");
+        const [h, m] = start.split(":").map(Number);
+        const nextTime = new Date();
+        nextTime.setHours(h, m, 0, 0);
+
+        const diff = nextTime - new Date();
+        if (diff > 0) {
+          const mins = Math.floor(diff / 60000);
+          const secs = Math.floor((diff % 60000) / 1000);
+          setCountdown(
+            mins > 0
+              ? `⏳ Next in ${mins} min${mins > 1 ? "s" : ""}`
+              : `⏳ Next in ${secs} sec${secs > 1 ? "s" : ""}`
+          );
+        } else {
+          setCountdown("🚀 Starting now!");
+        }
+      } else {
+        setCountdown("");
+      }
     }
+
     update();
-    const iv = setInterval(update, 60 * 1000);
+    const iv = setInterval(update, 1000);
     return () => clearInterval(iv);
   }, [division, todaySlots]);
 
@@ -100,6 +125,7 @@ export default function App() {
           <h3>Now</h3>
           <p className="big">{current || "No lecture right now"}</p>
           <p className="muted">Next: {next || "—"}</p>
+          {countdown && <p className="countdown">{countdown}</p>}
         </section>
 
         {/* Today's Schedule */}
@@ -107,10 +133,7 @@ export default function App() {
           <h3>📅 {today} Schedule</h3>
           <ul>
             {filteredToday.map((slot, i) => (
-              <li
-                key={i}
-                className={i === currentIdx ? "active" : ""}
-              >
+              <li key={i} className={i === currentIdx ? "active" : ""}>
                 <span className="time">{TIME_SLOTS[i]}</span>
                 <span className="subject">{slot || "—"}</span>
               </li>
@@ -152,7 +175,9 @@ export default function App() {
         )}
       </main>
 
-      <footer className="footer">📲 Mobile Friendly • 🔔 Notifications Ready | Made by Me :)</footer>
+      <footer className="footer">
+        📲 Mobile Friendly • 🔔 Notifications Ready | Made by Me :)
+      </footer>
     </div>
   );
 }
