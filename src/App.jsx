@@ -101,7 +101,7 @@ export default function App() {
       const granted = permission === "granted";
       setNotificationsEnabled(granted);
       if (granted) {
-        showNotification("🔔 Notifications Enabled!", "You'll get alerts for upcoming lectures");
+        showNotification("🔔 Notifications Enabled!", "You'll get alerts for upcoming lectures", "Please Keep the App Open in the Background for Notifications.");
       }
     } catch (e) {
       console.warn("Notification permission error", e);
@@ -284,7 +284,7 @@ export default function App() {
       {/* Header */}
       <header className="topbar">
         <div>
-          <h1>📚 Elphinstone FYJC</h1>
+          <h1>📚 Timetable FYJC Elphinstone</h1>
           <p>
             Academic Year 2025–26 — <strong>{division}</strong>
           </p>
@@ -323,7 +323,7 @@ export default function App() {
         {/* Notification status (when enabled) */}
         {notificationsEnabled && (
           <div className="notification-status">
-            ✅ Notifications enabled - You'll get alerts 10 min before lectures & 5 min before they end
+            ✅ Notifications enabled - You'll get alerts 10 min before lectures & 5 min before they end, if the app is open in the background or in the foreground.
           </div>
         )}
 
