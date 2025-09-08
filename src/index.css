@@ -1,25 +1,144 @@
-
-:root{
-  --bg:#fff7ff;
-  --card:#ffffff;
-  --muted:#6b7280;
-  --accent:#6d28d9;
+:root {
+  --bg: #fff7ff;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --accent: #6d28d9;
 }
-.dark{ --bg:#0b1020; --card:#0b1220; --muted:#9ca3af; --accent:#7c3aed; color:#e6eef8; }
-body{ margin:0; font-family:Inter, system-ui, Arial, sans-serif; background:linear-gradient(180deg,var(--bg),#fff); }
-.app-root{ min-height:100vh; padding:24px; }
-.topbar{ display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:18px; }
-.topbar h1{ margin:0; font-size:20px; }
-.controls select,input,button{ margin-left:8px; padding:8px 10px; border-radius:10px; border:1px solid #ddd; }
-.container{ display:grid; grid-template-columns:320px 1fr; gap:16px; align-items:start; }
-.nowcard{ background:var(--card); padding:16px; border-radius:12px; box-shadow:0 6px 18px rgba(16,24,40,0.06); }
-.nowcard .big{ font-size:18px; font-weight:600; margin:8px 0; }
-.timetable .grid{ display:grid; grid-template-columns:200px repeat(11,1fr); gap:0.5px; background:transparent; }
-.head{ background:var(--card); padding:10px; font-weight:600; text-align:center; }
-.left{ position:sticky; left:0; z-index:10; }
-.dayname{ background:var(--card); padding:10px; font-weight:700; position:sticky; left:0; z-index:9; }
-.cell{ background:var(--card); padding:10px; min-height:48px; }
-.footer{ margin-top:20px; text-align:center; color:var(--muted); }
+.dark {
+  --bg: #0b1020;
+  --card: #0b1220;
+  --muted: #9ca3af;
+  --accent: #7c3aed;
+  color: #e6eef8;
+}
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: linear-gradient(180deg, var(--bg), #fff);
+}
+.app-root {
+  min-height: 100vh;
+  padding: 24px;
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.topbar h1 {
+  margin: 0;
+  font-size: 20px;
+}
+.controls select,
+.controls input,
+.controls button {
+  margin-left: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nowcard {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+  text-align: center;
+}
+.nowcard .big {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+/* 🔹 Today's compact schedule */
+.today-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.today-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #ddd;
+  background: var(--card);
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+.today-list li.active {
+  background: #4cafef;
+  color: white;
+  font-weight: bold;
+}
+.today-list .time {
+  font-weight: 500;
+  color: var(--muted);
+}
+.today-list .subject {
+  flex: 1;
+  text-align: right;
+  font-weight: 600;
+}
+
+/* 🔹 Toggle button */
+.toggle-btn {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.7rem 1.4rem;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+.toggle-btn:hover {
+  opacity: 0.9;
+}
+
+/* 🔹 Full timetable grid */
+.timetable .grid {
+  display: grid;
+  grid-template-columns: 120px repeat(11, 1fr);
+  gap: 0.5px;
+  background: transparent;
+  overflow-x: auto;
+}
+.head {
+  background: var(--card);
+  padding: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+.left {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+}
+.dayname {
+  background: var(--card);
+  padding: 10px;
+  font-weight: 700;
+  position: sticky;
+  left: 0;
+  z-index: 9;
+}
+.cell {
+  background: var(--card);
+  padding: 10px;
+  min-height: 48px;
+}
 .cell.active {
   background: #4cafef;
   color: white;
@@ -27,15 +146,22 @@ body{ margin:0; font-family:Inter, system-ui, Arial, sans-serif; background:line
   border-radius: 6px;
 }
 
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* 🔹 Mobile adjustments */
 @media (max-width: 768px) {
   .grid {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
   .controls {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
   .nowcard .big {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 }

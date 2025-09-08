@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { DIVISIONS, TIME_SLOTS } from './data/timetable.js';
-import './index.css';
+import React, { useEffect, useMemo, useState } from "react";
+import { DIVISIONS, TIME_SLOTS } from "./data/timetable.js";
+import "./index.css";
 
 function getCurrentSlotIndex() {
   const now = new Date();
@@ -25,81 +25,52 @@ function getCurrentSlotIndex() {
 }
 
 function dayName() {
-  return new Date().toLocaleDateString('en-US', { weekday: 'long' });
+  return new Date().toLocaleDateString("en-US", { weekday: "long" });
 }
 
 export default function App() {
   const [division, setDivision] = useState(Object.keys(DIVISIONS)[0]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [dark, setDark] = useState(false);
   const [current, setCurrent] = useState(null);
   const [next, setNext] = useState(null);
   const [currentIdx, setCurrentIdx] = useState(-1);
+  const [showFull, setShowFull] = useState(false);
+
   const data = DIVISIONS[division];
+  const today = dayName();
+  const todaySlots = data[today] || [];
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
   useEffect(() => {
-    let timer;
     function update() {
       const idx = getCurrentSlotIndex();
-      const today = dayName();
-      const slots = data[today] || [];
-
       setCurrentIdx(idx);
-      setCurrent(idx >= 0 ? slots[idx] : null);
-      setNext(idx >= 0 && idx + 1 < slots.length ? slots[idx + 1] : null);
-
-      // 🔔 Schedule notification 5 minutes before next lecture
-      if (idx >= 0 && slots[idx + 1]) {
-        const [start] = TIME_SLOTS[idx + 1].split('–');
-        const [h, m] = start.split(':').map(Number);
-        const nextStart = new Date();
-        nextStart.setHours(h, m, 0, 0);
-
-        const diff = nextStart - Date.now() - 5 * 60 * 1000;
-        if (diff > 0) {
-          clearTimeout(timer);
-          timer = setTimeout(() => {
-            if (Notification.permission === 'granted') {
-              new Notification('Upcoming Lecture', {
-                body: `${slots[idx + 1]} starts in 5 minutes (Div ${division})`,
-              });
-            }
-          }, diff);
-        }
-      }
+      setCurrent(idx >= 0 ? todaySlots[idx] : null);
+      setNext(idx >= 0 && idx + 1 < todaySlots.length ? todaySlots[idx + 1] : null);
     }
-
-    if ('Notification' in window) Notification.requestPermission();
     update();
     const iv = setInterval(update, 60 * 1000);
-    return () => {
-      clearInterval(iv);
-      clearTimeout(timer);
-    };
-  }, [division, data]);
+    return () => clearInterval(iv);
+  }, [division, todaySlots]);
 
   const q = query.trim().toLowerCase();
-  const filtered = useMemo(() => {
-    if (!q) return data;
-    const out = {};
-    Object.keys(data).forEach(
-      (d) =>
-        (out[d] = data[d].map((c) =>
-          c && c.toLowerCase().includes(q) ? c : c === '—' ? '—' : ''
-        ))
+  const filteredToday = useMemo(() => {
+    if (!q) return todaySlots;
+    return todaySlots.map((c) =>
+      c && c.toLowerCase().includes(q) ? c : c === "—" ? "—" : ""
     );
-    return out;
-  }, [data, q]);
+  }, [todaySlots, q]);
 
   return (
     <div className="app-root">
+      {/* Header */}
       <header className="topbar">
         <div>
-          <h1>📚 Elphinstone FYJC Timetable</h1>
+          <h1>📚 Elphinstone FYJC</h1>
           <p>
             Academic Year 2025–26 — <strong>{division}</strong>
           </p>
@@ -118,55 +89,70 @@ export default function App() {
             onChange={(e) => setQuery(e.target.value)}
           />
           <button onClick={() => setDark((d) => !d)}>
-            {dark ? '☀️ Light' : '🌙 Dark'}
+            {dark ? "☀️ Light" : "🌙 Dark"}
           </button>
         </div>
       </header>
 
+      {/* Now / Next Card */}
       <main className="container">
         <section className="nowcard">
           <h3>Now</h3>
-          <p className="big">{current || 'No lecture right now'}</p>
-          <p className="muted">
-            Next: {next || '—'}{' '}
-            {next && (
-              <span style={{ fontStyle: 'italic', color: '#888' }}>
-                (Div {division})
-              </span>
-            )}
-          </p>
+          <p className="big">{current || "No lecture right now"}</p>
+          <p className="muted">Next: {next || "—"}</p>
         </section>
 
-        <section id="timetable-capture" className="timetable">
-          <div className="grid">
-            <div className="head left">Day / Time</div>
-            {TIME_SLOTS.map((t) => (
-              <div className="head" key={t}>
-                {t}
-              </div>
+        {/* Today's Schedule */}
+        <section className="today-list">
+          <h3>📅 {today} Schedule</h3>
+          <ul>
+            {filteredToday.map((slot, i) => (
+              <li
+                key={i}
+                className={i === currentIdx ? "active" : ""}
+              >
+                <span className="time">{TIME_SLOTS[i]}</span>
+                <span className="subject">{slot || "—"}</span>
+              </li>
             ))}
-            {Object.entries(filtered).map(([day, slots]) => (
-              <React.Fragment key={day}>
-                <div className="dayname">{day}</div>
-                {slots.map((cell, i) => (
-                  <div
-                    key={i}
-                    className={`cell ${
-                      day === dayName() && i === currentIdx ? 'active' : ''
-                    }`}
-                  >
-                    {cell}
-                  </div>
-                ))}
-              </React.Fragment>
-            ))}
-          </div>
+          </ul>
         </section>
+
+        {/* Full timetable toggle */}
+        <button className="toggle-btn" onClick={() => setShowFull((s) => !s)}>
+          {showFull ? "Hide Full Timetable" : "Show Full Timetable"}
+        </button>
+
+        {showFull && (
+          <section className="timetable">
+            <div className="grid">
+              <div className="head left">Day / Time</div>
+              {TIME_SLOTS.map((t) => (
+                <div className="head" key={t}>
+                  {t}
+                </div>
+              ))}
+              {Object.entries(data).map(([day, slots]) => (
+                <React.Fragment key={day}>
+                  <div className="dayname">{day}</div>
+                  {slots.map((cell, i) => (
+                    <div
+                      key={i}
+                      className={`cell ${
+                        day === today && i === currentIdx ? "active" : ""
+                      }`}
+                    >
+                      {cell}
+                    </div>
+                  ))}
+                </React.Fragment>
+              ))}
+            </div>
+          </section>
+        )}
       </main>
 
-      <footer className="footer">
-        📲 Mobile Friendly • 🔔 Notifications Enabled • Install as PWA • Made by someone with roll no.1053
-      </footer>
+      <footer className="footer">📲 Mobile Friendly • 🔔 Notifications Ready | Made by Me :)</footer>
     </div>
   );
 }
