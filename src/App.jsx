@@ -177,7 +177,7 @@ export default function App() {
         📲 Mobile Friendly • 🔔 Notifications Ready | Made by Cauz :)
       </footer>
             <footer className="footer">
-        ⚠️ To Suggest Changes, Contact Ayaan on WhatsApp: 7738770095 ⚠️
+        ⚠️ To Suggest Changes, Contact Me on WhatsApp: 7738770095 ⚠️
       </footer>
       <footer className="footer">
         ⚠️ This is an unofficial app. Verify with official sources. ⚠️
