@@ -174,7 +174,7 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        📲 Mobile Friendly • 🔔 Notifications Ready | Made by Cauz :)
+        📲 Mobile Friendly • 🔔 Agree to Notifications for Updates
       </footer>
             <footer className="footer">
         ⚠️ To Suggest Changes, Contact Me on WhatsApp: 7738770095 ⚠️
