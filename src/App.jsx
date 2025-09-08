@@ -176,7 +176,7 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        📲 Mobile Friendly • 🔔 Notifications Ready | Made by Me :)
+        📲 Mobile Friendly • 🔔 Notifications Ready | Made by Cauz :)
       </footer>
     </div>
   );
