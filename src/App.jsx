@@ -179,6 +179,9 @@ export default function App() {
             <footer className="footer">
         ⚠️ To Suggest Changes, Contact Ayaan on WhatsApp: 7738770095 ⚠️
       </footer>
+      <footer className="footer">
+        ⚠️ This is an unofficial app. Verify with official sources. ⚠️
+      </footer>
     </div>
   );
 }
