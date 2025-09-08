@@ -173,15 +173,48 @@ export default function App() {
         )}
       </main>
 
-      <footer className="footer">
-        📲 Mobile Friendly • 🔔 Agree to Notifications for Updates
-      </footer>
-            <footer className="footer">
-        ⚠️ To Suggest Changes, Contact Me on WhatsApp: 7738770095 ⚠️
-      </footer>
-      <footer className="footer">
-        ⚠️ This is an unofficial app. Verify with official sources. ⚠️
-      </footer>
+// Updated footer with WhatsApp link and improvements
+<footer className="footer">
+  🔔 Agree to Notifications for Updates
+</footer>
+
+<footer className="footer">
+  ⚠️ To Suggest Changes, Contact Me on{' '}
+  <a 
+    href="https://wa.me/qr/U4B2LC3PC7QIO1" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="whatsapp-link"
+  >
+    WhatsApp
+  </a>{' '}
+  ⚠️
+</footer>
+
+<footer className="footer">
+  ⚠️ This is an unofficial app. Verify with official sources. ⚠️
+</footer>
+
+{/* Alternative: Single consolidated footer */}
+<footer className="footer-consolidated">
+  <div className="footer-item">
+    🔔 Agree to Notifications for Updates
+  </div>
+  <div className="footer-item">
+    💬 Suggestions? Contact me on{' '}
+    <a 
+      href="https://wa.me/qr/U4B2LC3PC7QIO1" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="whatsapp-link"
+    >
+      WhatsApp
+    </a>
+  </div>
+  <div className="footer-item">
+    ⚠️ Unofficial app - Please verify with official sources
+  </div>
+</footer>
     </div>
   );
 }
