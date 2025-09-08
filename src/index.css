@@ -1,8 +1,9 @@
 :root {
-  --bg: #fff7ff;
-  --card: #ffffff;
-  --muted: #6b7280;
-  --accent: #6d28d9;
+  --bg: #0b1020;
+  --card: #0b1220;
+  --muted: #a6a7aa;
+  --accent: #7c3aed;
+  color: #ffffff;
 }
 .dark {
   --bg: #0b1020;
@@ -14,7 +15,7 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, Arial, sans-serif;
-  background: linear-gradient(180deg, var(--bg), #fff);
+  background: linear-gradient(180deg, var(--bg), #000000);
 }
 .app-root {
   min-height: 100vh;
@@ -187,4 +188,94 @@ body {
 .footer-item {
   margin: 5px 0;
   font-size: 12px;
+}
+
+/* Notification Banner */
+.notification-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.notification-banner p {
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.notify-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.notify-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Notification Status */
+.notification-status {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 3px 10px rgba(17, 153, 142, 0.3);
+}
+
+/* Notification Indicators */
+.notification-indicator {
+  margin-left: 10px;
+}
+
+.upcoming {
+  font-size: 12px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Dark mode styles */
+.dark .notification-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.dark .notification-status {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .notification-banner {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .notify-btn {
+    padding: 6px 16px;
+    font-size: 14px;
+  }
+  
+  .notification-status {
+    padding: 10px;
+    font-size: 12px;
+  }
 }
