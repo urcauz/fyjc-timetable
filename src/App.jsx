@@ -173,28 +173,6 @@ export default function App() {
         )}
       </main>
 
-// Updated footer with WhatsApp link and improvements
-<footer className="footer">
-  🔔 Agree to Notifications for Updates
-</footer>
-
-<footer className="footer">
-  ⚠️ To Suggest Changes, Contact Me on{' '}
-  <a 
-    href="https://wa.me/qr/U4B2LC3PC7QIO1" 
-    target="_blank" 
-    rel="noopener noreferrer"
-    className="whatsapp-link"
-  >
-    WhatsApp
-  </a>{' '}
-  ⚠️
-</footer>
-
-<footer className="footer">
-  ⚠️ This is an unofficial app. Verify with official sources. ⚠️
-</footer>
-
 {/* Alternative: Single consolidated footer */}
 <footer className="footer-consolidated">
   <div className="footer-item">
