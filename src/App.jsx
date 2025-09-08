@@ -113,9 +113,7 @@ export default function App() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button onClick={() => setDark((d) => !d)}>
-            {dark ? "☀️ Light" : "🌙 Dark"}
-          </button>
+          
         </div>
       </header>
 
