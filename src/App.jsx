@@ -176,7 +176,7 @@ export default function App() {
 {/* Alternative: Single consolidated footer */}
 <footer className="footer-consolidated">
   <div className="footer-item">
-    🔔 Agree to Notifications for Updates
+    🔔 Agree to Notifications for Updates About Next Lectures
   </div>
   <div className="footer-item">
     💬 Suggestions? Contact me on{' '}
@@ -192,6 +192,10 @@ export default function App() {
   <div className="footer-item">
     ⚠️ Unofficial app - Please verify with official sources
   </div>
+  <div className="footer-item">
+    ⚠️ Last Updated : 08-sep-2025 | 9:50pm
+  </div>
+  
 </footer>
     </div>
   );
