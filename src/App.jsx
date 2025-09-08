@@ -128,7 +128,7 @@ export default function App() {
 
         {/* Today's Schedule */}
         <section className="today-list">
-          <h3>📅 {today} Schedule</h3>
+          <h3>💀 {today} Schedule</h3>
           <ul>
             {filteredToday.map((slot, i) => (
               <li key={i} className={i === currentIdx ? "active" : ""}>
