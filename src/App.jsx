@@ -176,6 +176,9 @@ export default function App() {
       <footer className="footer">
         📲 Mobile Friendly • 🔔 Notifications Ready | Made by Cauz :)
       </footer>
+            <footer className="footer">
+        ⚠️ To Suggest Changes, Contact Ayaan on WhatsApp: 7738770095 ⚠️
+      </footer>
     </div>
   );
 }
