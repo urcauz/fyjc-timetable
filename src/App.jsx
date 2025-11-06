@@ -404,7 +404,7 @@ export default function App() {
           </a>
         </div>
         <div className="footer-item">⚠️ Unofficial app - Please verify with official timetable</div>
-        <div className="footer-item">⚠️ Last Updated : 08-sep-2025 | 9:50pm</div>
+        <div className="footer-item">⚠️ Last Updated : 08-sep-2025 | 10:10pm</div>
       </footer>
     </div>
   );
